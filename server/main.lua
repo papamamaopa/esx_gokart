@@ -10,6 +10,6 @@ AddEventHandler("cart:checkMoney", function(kart, price)
         xPlayer.removeMoney(price)
         TriggerClientEvent("cart:spawn", source, kart, price)
     else
-        TriggerClientEvent('CarError', source, price)
+        TriggerClientEvent('CarError', source, "Du hast nicht genug Geld dabei!")
     end
 end)
