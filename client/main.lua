@@ -77,6 +77,7 @@ AddEventHandler("nui:on", function(value)
 	SendNUIMessage({ showUI = true })
 	ui = true
 	SetNuiFocus(true, true)
+	TriggerScreenblurFadeIn(20)
 end)
 
 RegisterNUICallback("nui:pushKart", function(value, cb)
@@ -89,11 +90,14 @@ end)
 
 RegisterNetEvent("cart:spawn")
 AddEventHandler("cart:spawn", function(kart, price)
+	TriggerScreenblurFadeOut(
+		10
+	)
 	print(price, kart)
 	if (isDriving) then
 		SetNotificationTextEntry("STRING");
 		AddTextComponentString("Deine Miete läuft noch!");
-		SetNotificationMessage("CHAR_LAZLOW2", "CHAR_LAZLOW2", true, 1, "~w~Kartstrecke~w~",
+		SetNotificationMessage("CHAR_LAZLOW2", "CHAR_LAZLOW2", true, 1, "~w~Kartstrecken CEO~w~",
 			"Es wurde eine ~g~Werbung geschalten!~w~", "");
 		DrawNotification(false, true);
 		return
@@ -168,19 +172,25 @@ RegisterNUICallback("nui:off", function(value, cb)
 	SendNUIMessage({ showUI = false })
 	ui = false
 	SetNuiFocus(false, false)
+	TriggerScreenblurFadeOut(
+		10
+	)
 end)
 
 RegisterNetEvent("CarError")
 AddEventHandler("CarError", function(inputText)
 	SetNotificationTextEntry("STRING");
 	AddTextComponentString(inputText);
-	SetNotificationMessage("CHAR_LAZLOW2", "CHAR_LAZLOW2", true, 1, "~w~Kartstrecke~w~",
+	SetNotificationMessage("CHAR_LAZLOW2", "CHAR_LAZLOW2", true, 1, "~w~Kartstrecken CEO~w~",
 		"~r~Ein Fehler ist aufgetreten~s~", "");
 	DrawNotification(false, true);
 
 	noMoneyError = true
 	print(noMoneyError)
 	print("--- error ---")
+	TriggerScreenblurFadeOut(
+		10
+	)
 end)
 
 Citizen.CreateThread(function()

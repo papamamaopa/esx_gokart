@@ -29,6 +29,7 @@
     .container {
       margin: 30px 0;
       box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+      background-color: rgba(0, 0, 0, 0.5);
     }
 
     button:active {
@@ -41,10 +42,11 @@
     <div
       id="wrapper"
       style="
+        z-index: 20;
         display: none;
         position: absolute;
-        top: 70px;
-        left: 300px;
+        top: 20%;
+        left: 20%;
         background-color: rgba(61, 61, 61, 0.2);
         padding: 10px 30px 50px 30px;
         font-family: 'Poppins', sans-serif;
@@ -52,6 +54,19 @@
         box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
       "
     >
+      <img
+        style="
+          position: absolute;
+          z-index: -1;
+          opacity: 0.5;
+          top: -5%;
+          right: 15%;
+          rotate: 20deg;
+        "
+        src="https://cdn.discordapp.com/attachments/976481751218126868/984873537795948654/dle_diamond.png"
+        alt="diamond"
+        height="110%"
+      />
       <div
         style="
           display: flex;
@@ -60,6 +75,17 @@
           align-items: center;
         "
       >
+        <div
+          style="
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+            width: 100%;
+            padding-top: 10px;
+          "
+        >
+          <a id="doClose" style="color: white"><i data-feather="x"></i></a>
+        </div>
         <div id="header" style="text-align: center">
           <div
             style="
@@ -67,11 +93,7 @@
               justify-content: flex-end;
               align-items: flex-end;
             "
-          >
-            <a id="doClose" style="margin-left: auto; color: white"
-              ><i data-feather="x"></i
-            ></a>
-          </div>
+          ></div>
           <div>
             <h1
               style="
@@ -88,13 +110,14 @@
             >
           </div>
         </div>
-        <div id="content">
+        <div id="content" style="display: flex">
           <div
             style="
               padding: 30px 60px;
               border: 1px solid transparent;
               border-radius: 24px;
               transition: all 0.2s;
+              margin-right: 10px;
             "
             id="kart1"
             class="container"
@@ -111,6 +134,7 @@
               border: 1px solid transparent;
               transition: all 0.2s;
               border-radius: 24px;
+              margin-right: 10px;
             "
             id="kart2"
             class="container"
@@ -169,7 +193,7 @@
                 color: white;
                 font-size: 15px;
                 border: none;
-                padding: 10px 10px;
+                padding: 20px 30px;
               "
             >
               10min
@@ -181,7 +205,7 @@
                 color: white;
                 font-size: 15px;
                 border: none;
-                padding: 10px 10px;
+                padding: 20px 30px;
               "
             >
               30min
@@ -195,7 +219,7 @@
                 color: white;
                 font-size: 15px;
                 border: none;
-                padding: 10px 10px;
+                padding: 20px 30px;
               "
             >
               60min
@@ -209,7 +233,8 @@
               color: white;
               font-size: 20px;
               border: none;
-              padding: 10px 50px;
+              width: 100%;
+              padding: 20px;
             "
           >
             mieten
@@ -236,23 +261,23 @@
   $(document).ready(() => {
     $("#kart1").click(() => {
       kart = 0;
-      $("#kart1").css("border", "1px solid white");
-      $("#kart2").css("border", "1px solid transparent");
-      $("#kart3").css("border", "1px solid transparent");
+      $("#kart1").css("background-color", "rgba(0,0,0,0.8)");
+      $("#kart2").css("background-color", "rgba(0,0,0,0.5)");
+      $("#kart3").css("background-color", "rgba(0,0,0,0.5)");
     });
 
     $("#kart2").click(() => {
       kart = 1;
-      $("#kart1").css("border", "1px solid transparent");
-      $("#kart2").css("border", "1px solid white");
-      $("#kart3").css("border", "1px solid transparent");
+      $("#kart1").css("background-color", "rgba(0,0,0,0.5)");
+      $("#kart2").css("background-color", "rgba(0,0,0,0.8)");
+      $("#kart3").css("background-color", "rgba(0,0,0,0.5)");
     });
 
     $("#kart3").click(() => {
       kart = 2;
-      $("#kart1").css("border", "1px solid transparent");
-      $("#kart2").css("border", "1px solid transparent");
-      $("#kart3").css("border", "1px solid white");
+      $("#kart1").css("background-color", "rgba(0,0,0,0.5)");
+      $("#kart2").css("background-color", "rgba(0,0,0,0.5)");
+      $("#kart3").css("background-color", "rgba(0,0,0,0.8)");
     });
 
     $("#10").click(() => {
