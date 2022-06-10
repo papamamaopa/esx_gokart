@@ -1,0 +1,307 @@
+<html>
+  <header>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.6/dist/js/splide.min.js"
+      integrity="sha256-XZpu4rL0Lni1cA4tXuP+FEodi6B7ZcoIV6/y6uA2fQY="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.6/dist/css/splide.min.css"
+      integrity="sha256-6YrKt7vMU9e4bwtlblASqhvvEt4/0JEQJ/zyWOFKnaM="
+      crossorigin="anonymous"
+    />
+  </header>
+
+  <style>
+    .container {
+      margin: 30px 0;
+    }
+
+    button:active {
+      transform: translateY(4px);
+    }
+  </style>
+
+  <body>
+    <!---Our content will soon go here!-->
+    <div
+      id="wrapper"
+      style="
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 300px;
+        background-color: rgba(61, 61, 61, 0.2);
+        padding: 10px 30px 50px 30px;
+        font-family: 'Poppins', sans-serif;
+        border-radius: 15px;
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+      "
+    >
+      <div
+        style="
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          align-items: center;
+        "
+      >
+        <div id="header" style="text-align: center">
+          <div
+            style="
+              display: flex;
+              justify-content: flex-end;
+              align-items: flex-end;
+            "
+          >
+            <a id="doClose" style="margin-left: auto; color: white"
+              ><i data-feather="x"></i
+            ></a>
+          </div>
+          <div>
+            <h1
+              style="
+                color: white;
+                font-size: 24;
+                padding-bottom: 0;
+                margin-bottom: 0;
+              "
+            >
+              GoKart
+            </h1>
+            <span style="color: white; font-size: 20; padding-top: -50px"
+              >Wähle dein Kart</span
+            >
+          </div>
+        </div>
+        <div id="content">
+          <div
+            style="
+              padding: 5px 10px;
+              border: 1px solid transparent;
+              border-radius: 24px;
+              transition: all 0.2s;
+            "
+            id="kart1"
+            class="container"
+          >
+            <img
+              height="95px"
+              src="https://i.ibb.co/GxCKff6/kart-1.png"
+              alt="kart1"
+            />
+          </div>
+          <div
+            style="
+              padding: 10px;
+              border: 1px solid transparent;
+              transition: all 0.2s;
+              border-radius: 24px;
+            "
+            id="kart2"
+            class="container"
+          >
+            <img
+              height="110px"
+              src="https://i.ibb.co/R2zsPjC/kart-2.png"
+              alt="kart1"
+            />
+          </div>
+          <div
+            style="
+              padding: 10px;
+              border: 1px solid transparent;
+              transition: all 0.2s;
+              border-radius: 24px;
+            "
+            id="kart3"
+            class="container"
+          >
+            <img
+              height="100px"
+              src="https://i.ibb.co/23pby0t/kart-3.png"
+              alt="kart1"
+            />
+          </div>
+        </div>
+        <div
+          id="footer"
+          style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+          "
+        >
+          <span
+            style="color: white; margin-bottom: 10px; font-size: 32px"
+            id="preis"
+            >$10.000</span
+          >
+          <div
+            style="
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              padding-bottom: 20px;
+            "
+          >
+            <button
+              id="10"
+              style="
+                background: #000000;
+                border-top-left-radius: 24px;
+                border-bottom-left-radius: 24px;
+                color: white;
+                font-size: 15px;
+                border: none;
+                padding: 10px 10px;
+              "
+            >
+              10min
+            </button>
+            <button
+              id="30"
+              style="
+                background: #000000;
+                color: white;
+                font-size: 15px;
+                border: none;
+                padding: 10px 10px;
+              "
+            >
+              30min
+            </button>
+            <button
+              id="60"
+              style="
+                background: #000000;
+                border-top-right-radius: 24px;
+                border-bottom-right-radius: 24px;
+                color: white;
+                font-size: 15px;
+                border: none;
+                padding: 10px 10px;
+              "
+            >
+              60min
+            </button>
+          </div>
+          <button
+            id="submit"
+            style="
+              background: #000000;
+              border-radius: 24px;
+              color: white;
+              font-size: 20px;
+              border: none;
+              padding: 10px 50px;
+            "
+          >
+            mieten
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  window.addEventListener("message", function (event) {
+    var item = event.data;
+    if (item.showUI) {
+      $("#wrapper").show();
+    } else {
+      $("#wrapper").hide();
+    }
+  });
+
+  let kart;
+  let preis;
+
+  $(document).ready(() => {
+    $("#kart1").click(() => {
+      kart = 0;
+      $("#kart1").css("border", "1px solid white");
+      $("#kart2").css("border", "1px solid transparent");
+      $("#kart3").css("border", "1px solid transparent");
+    });
+
+    $("#kart2").click(() => {
+      kart = 1;
+      $("#kart1").css("border", "1px solid transparent");
+      $("#kart2").css("border", "1px solid white");
+      $("#kart3").css("border", "1px solid transparent");
+    });
+
+    $("#kart3").click(() => {
+      kart = 2;
+      $("#kart1").css("border", "1px solid transparent");
+      $("#kart2").css("border", "1px solid transparent");
+      $("#kart3").css("border", "1px solid white");
+    });
+
+    $("#10").click(() => {
+      $("#preis").html("$10.000");
+      preis = 10000;
+    });
+
+    $("#30").click(() => {
+      $("#preis").html("$25.000");
+      preis = 25000;
+    });
+
+    $("#60").click(() => {
+      $("#preis").html("$40.000");
+      preis = 40000;
+    });
+  });
+
+  $(document).ready(function () {
+    $("#submit").click(() => {
+      fetch(`https://${GetParentResourceName()}/nui:pushKart`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+        body: JSON.stringify({
+          kart: kart ? kart : 0,
+          price: preis ? preis : 10000,
+        }),
+      })
+        .then((resp) => resp.json())
+        .then((resp) => console.log(resp));
+    });
+
+    $("#doClose").click(() => {
+      //$.post("http://esx_gokart/nuioff", JSON.stringify({ key: false }));
+
+      fetch(`https://${GetParentResourceName()}/nui:off`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+        body: JSON.stringify({
+          itemId: "my-item",
+        }),
+      })
+        .then((resp) => resp.json())
+        .then((resp) => console.log(resp));
+    });
+  });
+
+  feather.replace();
+</script>
