@@ -93,7 +93,7 @@ AddEventHandler("cart:spawn", function(kart, price)
 	TriggerScreenblurFadeOut(
 		10
 	)
-	print(price, kart)
+
 	if (isDriving) then
 		SetNotificationTextEntry("STRING");
 		AddTextComponentString("Deine Miete läuft noch!");
@@ -140,14 +140,12 @@ AddEventHandler("cart:spawn", function(kart, price)
 		Wait(10)
 	end
 
-	print("debug#4")
-
 	local playerPed = PlayerPedId()
 	local vehicle = CreateVehicle(modelHash, vector3(-1146.11, -2121.44, 14.56), SetModelAsNoLongerNeeded(modelHash))
 	TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
+	VehToNet(vehicle)
 	isDriving = true
 
-	print("debug#5")
 
 	while (time ~= 0) do
 		Wait(1000)
