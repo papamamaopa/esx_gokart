@@ -71,8 +71,8 @@ CreateThread(function()
 	end
 end)
 
-RegisterNetEvent("nui:on")
-AddEventHandler("nui:on", function(value)
+RegisterNetEvent("nuigo:on")
+AddEventHandler("nuigo:on", function(value)
 	print("nui:on -> triggerd")
 	SendNUIMessage({ showUI = true })
 	ui = true
@@ -210,7 +210,7 @@ Citizen.CreateThread(function()
 			isInMarker = false
 		end
 		if IsControlJustReleased(0, Keys['E']) and isInMarker == true then
-			TriggerEvent("nui:on", true)
+			TriggerEvent("nuigo:on", true)
 		end
 
 	end
