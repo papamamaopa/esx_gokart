@@ -126,32 +126,19 @@ AddEventHandler("cart:spawn", function(kart, price)
 		time = 3600
 	end
 
-
-	if not (modelHash == nil) then
-		if not IsModelInCdimage(modelHash) then return end
-	end
-
-
-	RequestModel(modelHash)
-
-	print(modelHash)
-
-	while not HasModelLoaded(modelHash) do
-		Wait(10)
-	end
-
 	local playerPed = PlayerPedId()
-	local vehicle = CreateVehicle(modelHash, vector3(-1146.11, -2121.44, 14.56), SetModelAsNoLongerNeeded(modelHash))
-	TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
-	VehToNet(vehicle)
-	isDriving = true
+	ESX.Game.SpawnVehicle(modelHash, vector3(-1146.11, -2121.44, 14.56), 90.0, function(vehicle)
+		TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
+		isDriving = true
+	end)
+
 
 
 	while (time ~= 0) do
 		Wait(1000)
 		time = time - 1
 		if (time == 0) then
-			DeleteVehicle(vehicle)
+			TriggerServerEvent("gokart:clearCart", vehicle)
 			isDriving = false
 		end
 		if GetDistanceBetweenCoords(GetEntityCoords(playerPed), -1110.0, -2113.11, 13.64, true) > 60.0 then
@@ -161,8 +148,6 @@ AddEventHandler("cart:spawn", function(kart, price)
 		end
 		print(time)
 	end
-
-
 end)
 
 RegisterNUICallback("nui:off", function(value, cb)
@@ -173,6 +158,31 @@ RegisterNUICallback("nui:off", function(value, cb)
 	TriggerScreenblurFadeOut(
 		10
 	)
+end)
+
+RegisterNetEvent("gokart:setCart")
+AddEventHandler("gokart:setCart", function(vehicle)
+
+	local playerPed = PlayerPedId()
+	TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
+	isDriving = true
+
+
+	while (time ~= 0) do
+		Wait(1000)
+		time = time - 1
+		if (time == 0) then
+			TriggerServerEvent("gokart:clearCart", vehicle)
+			isDriving = false
+		end
+		if GetDistanceBetweenCoords(GetEntityCoords(playerPed), -1110.0, -2113.11, 13.64, true) > 60.0 then
+			if not (time <= 3) then
+				time = 3
+			end
+		end
+		print(time)
+	end
+
 end)
 
 RegisterNetEvent("CarError")

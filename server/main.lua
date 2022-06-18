@@ -13,3 +13,10 @@ AddEventHandler("cart:checkMoney", function(kart, price)
         TriggerClientEvent('CarError', source, "Du hast nicht genug Geld dabei!")
     end
 end)
+
+RegisterServerEvent("gokart:spawnCart")
+AddEventHandler("gokart:spawnCart", function(modelHash)
+    print(modelHash)
+    local vehicle = CreateVehicle(modelHash, -1146.11, -2121.44, 14.56, 1.0, true, true)
+    TriggerClientEvent("gokart:setCart", vehicle)
+end)
