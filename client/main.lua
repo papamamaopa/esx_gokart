@@ -22,6 +22,7 @@ local modelHash
 local time
 local isDriving
 local noMoneyError
+local esxVehicle
 
 Citizen.CreateThread(function()
 	while ESX == nil do
@@ -80,73 +81,57 @@ AddEventHandler("nuigo:on", function(value)
 	TriggerScreenblurFadeIn(20)
 end)
 
-RegisterNUICallback("nui:pushKart", function(value, cb)
-	print("nui:send -> triggerd")
+RegisterNUICallback("nui:pushKart", function(value)
+	print("nui:send -> test")
 	SendNUIMessage({ showUI = false })
 	ui = false
 	SetNuiFocus(false, false)
-	TriggerServerEvent("cart:checkMoney", value.kart, value.price)
-end)
+	TriggerScreenblurFadeOut(20)
 
-RegisterNetEvent("cart:spawn")
-AddEventHandler("cart:spawn", function(kart, price)
-	TriggerScreenblurFadeOut(
-		10
-	)
+	local driveTime = value.time
 
 	if (isDriving) then
 		SetNotificationTextEntry("STRING");
 		AddTextComponentString("Deine Miete läuft noch!");
 		SetNotificationMessage("CHAR_LAZLOW2", "CHAR_LAZLOW2", true, 1, "~w~Kartstrecken CEO~w~",
-			"Es wurde eine ~g~Werbung geschalten!~w~", "");
+			"Du hast bereits ein Kart gemietet!~w~", "");
 		DrawNotification(false, true);
 		return
 	end
 
 
-	if (kart == 0) then
+	if (value.kart == 0) then
 		modelHash = "kart26"
 	end
-	if (kart == 1) then
+	if (value.kart == 1) then
 		modelHash = "kart20"
 	end
-	if (kart == 2) then
+	if (value.kart == 2) then
 		modelHash = "kart3"
 	end
 
-	print("debug#2")
-
-	if (price == 10000) then
-		time = 600
-	end
-	if (price == 24000) then
-		time = 1800
-	end
-	if (price == 40000) then
-		time = 3600
-	end
-
 	local playerPed = PlayerPedId()
-	ESX.Game.SpawnVehicle(modelHash, vector3(-1146.11, -2121.44, 14.56), 90.0, function(vehicle)
+	ESX.Game.SpawnVehicle(modelHash, vector3(-1649.85, -825.21, 9.40), 52.59, function(vehicle)
 		TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
 		isDriving = true
+		esxVehicle = vehicle
 	end)
 
 
 
-	while (time ~= 0) do
+	while (driveTime ~= 0) do
 		Wait(1000)
-		time = time - 1
-		if (time == 0) then
-			TriggerServerEvent("gokart:clearCart", vehicle)
+		driveTime = driveTime - 1
+		if (driveTime == 0) then
+			ESX.Game.DeleteVehicle(esxVehicle)
 			isDriving = false
 		end
-		if GetDistanceBetweenCoords(GetEntityCoords(playerPed), -1110.0, -2113.11, 13.64, true) > 60.0 then
-			if not (time <= 3) then
-				time = 3
+		if GetDistanceBetweenCoords(GetEntityCoords(playerPed), -1644.8, -970.86, 7.55, true) > 160.0 then
+			if not (driveTime <= 3) then
+				driveTime = 3
 			end
 		end
-		print(time)
+		print(driveTime)
 	end
 end)
 
@@ -160,47 +145,6 @@ RegisterNUICallback("nui:off", function(value, cb)
 	)
 end)
 
-RegisterNetEvent("gokart:setCart")
-AddEventHandler("gokart:setCart", function(vehicle)
-
-	local playerPed = PlayerPedId()
-	TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
-	isDriving = true
-
-
-	while (time ~= 0) do
-		Wait(1000)
-		time = time - 1
-		if (time == 0) then
-			TriggerServerEvent("gokart:clearCart", vehicle)
-			isDriving = false
-		end
-		if GetDistanceBetweenCoords(GetEntityCoords(playerPed), -1110.0, -2113.11, 13.64, true) > 60.0 then
-			if not (time <= 3) then
-				time = 3
-			end
-		end
-		print(time)
-	end
-
-end)
-
-RegisterNetEvent("CarError")
-AddEventHandler("CarError", function(inputText)
-	SetNotificationTextEntry("STRING");
-	AddTextComponentString(inputText);
-	SetNotificationMessage("CHAR_LAZLOW2", "CHAR_LAZLOW2", true, 1, "~w~Kartstrecken CEO~w~",
-		"~r~Ein Fehler ist aufgetreten~s~", "");
-	DrawNotification(false, true);
-
-	noMoneyError = true
-	print(noMoneyError)
-	print("--- error ---")
-	TriggerScreenblurFadeOut(
-		10
-	)
-end)
-
 Citizen.CreateThread(function()
 	while true do
 
@@ -209,11 +153,11 @@ Citizen.CreateThread(function()
 		local coords     = GetEntityCoords(playerPed)
 
 		Wait(0)
-		DrawMarker(1, -1154.96, -2151.83, 12.20, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 1.5, 1.5, 0.5, 200, 55, 50, 100, false, true,
+		DrawMarker(1, -1645.39, -821.46, 9.08, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 1.5, 1.5, 0.5, 200, 55, 50, 100, false, true,
 			2,
 			false, false, false, false)
 
-		if GetDistanceBetweenCoords(coords, -1154.96, -2151.83, 13.26, true) < 1.5 then
+		if GetDistanceBetweenCoords(coords, -1645.39, -821.46, 9.08, true) < 1.5 then
 			isInMarker = true
 			ESX.ShowHelpNotification('Drücke ~INPUT_CONTEXT~ um dir ein GoKart zu mieten!')
 		else
@@ -224,4 +168,18 @@ Citizen.CreateThread(function()
 		end
 
 	end
+end)
+
+
+-- Blip
+Citizen.CreateThread(function()
+	local blip = AddBlipForCoord(-1645.39, -821.46, 9.08)
+	SetBlipSprite(blip, 315)
+	SetBlipDisplay(blip, 4)
+	SetBlipScale(blip, 0.9)
+	SetBlipColour(blip, 49)
+	SetBlipAsShortRange(blip, true)
+	BeginTextCommandSetBlipName("STRING")
+	AddTextComponentString("GoKart")
+	EndTextCommandSetBlipName(blip)
 end)
